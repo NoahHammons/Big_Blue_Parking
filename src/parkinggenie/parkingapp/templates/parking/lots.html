@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Lots{% endblock title %}
+
+{% block content %}
+<div class="container-fluid">
+<h2 class="title-heading">Available Lots</h2>
+    {% if lot_list %}
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>Lot</th>
+                        <th>Location</th>
+                        <th>Available Spaces</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for lot in lot_list %}
+                    <tr>
+                        <td><a href="/parking/events/lots/{{ lot.id }}/">
+                        {% if lot.nickname != "" %}
+                            {{lot.nickname}}
+                        {% else %}
+                            Lot {{lot.id}}
+                        {%endif%}
+                        </a></td>
+                        <td>{{lot.location}} </td>
+                        <td>{{lot.available_spaces | add:lot.available_spaces_lrg}}</td>
+                    </tr> 
+                {% endfor %}
+                </tbody>
+            </table>
+    {% else %}
+        <p>No lots were found.</p>
+    {% endif %}
+</div>
+{% endblock content %}
